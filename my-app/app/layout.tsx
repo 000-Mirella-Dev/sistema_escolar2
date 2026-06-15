@@ -1,0 +1,17 @@
+import "./globals.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import type { ReactNode } from "react";
+
+type RootLayoutProps = {
+  children: ReactNode;
+};
+
+export default function RootLayout({ children }: RootLayoutProps) {
+  return (
+    <html lang="pt-BR">
+      <body>
+        {children}
+      </body>
+    </html>
+  );
+}
