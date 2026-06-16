@@ -46,23 +46,46 @@ if (usuarioExistente.rows.length > 0) {
             );
         }
 
-    if (
-      perfil === "ADMIN" &&
-      chaveMestra !== senha_un_adm
-    )if (
-      perfil === "PROFESSOR" &&
-      chaveMestra !== senha_un_prof
-    ){
-      return Response.json(
+  if (
+    perfil === "ADMIN" &&
+    chaveMestra !== senha_un_adm
+) {
+    return Response.json(
         {
-          erro:
-            "Chave mestra incorreta",
+            erro: "Chave mestra de administrador incorreta"
         },
         {
-          status: 403,
+            status: 403
         }
-      );
-    }
+    );
+}
+
+if (
+    perfil === "PROFESSOR" &&
+    chaveMestra !== senha_un_prof
+) {
+    return Response.json(
+        {
+            erro: "Chave mestra de professor incorreta"
+        },
+        {
+            status: 403
+        }
+    );
+} 
+if (
+    (perfil === "ADMIN" || perfil === "PROFESSOR")
+    && !chaveMestra
+) {
+    return Response.json(
+        {
+            erro: "Informe a chave mestra."
+        },
+        {
+            status: 400
+        }
+    );
+}
 
     const senhaCriptografada =
       await bcrypt.hash(senha, 10);

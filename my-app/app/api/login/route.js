@@ -48,7 +48,7 @@ export async function POST(req) {
       "Set-Cookie",
       `usuario=${encodeURIComponent(
         JSON.stringify(sessionData)
-      )}; Path=/; HttpOnly; Max-Age=86400; SameSite=Strict`
+      )}; Path=/; HttpOnly; Max-Age=2592000; SameSite=Strict`
     );
 
     return response;

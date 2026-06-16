@@ -1,29 +1,65 @@
 "use client";
-import LogoutButton from "@/app/components/logout"; 
+
+import LogoutButton from "@/app/components/logout";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function DashboardAdmin() {
+
+  const router = useRouter();
+
   const [dados, setDados] = useState({
     Usuarios: 0,
     Admins: 0,
     Professores: 0,
     Alunos: 0,
     Cadastros: [],
-  }); 
+  });
 
   useEffect(() => {
-    async function carregarDados() {
-      try {
-        const resposta = await fetch("/api/totalUsuarios");
-        const data = await resposta.json();
-        setDados(data);
-      } catch (err) {
-        console.log("Erro ao carregar dados:", err);
+
+    async function verificarAcesso() {
+
+      const resposta =
+        await fetch("/api/verificarAdm");
+
+      if (!resposta.ok) {
+
+        router.push("/acessoNegado");
+
       }
+
+    }
+
+    verificarAcesso();
+
+  }, [router]);
+
+  useEffect(() => {
+
+    async function carregarDados() {
+
+      try {
+
+        const resposta =
+          await fetch("/api/totalUsuarios");
+
+        const data =
+          await resposta.json();
+
+        setDados(data);
+
+      } catch (err) {
+
+        console.log(err);
+
+      }
+
     }
 
     carregarDados();
+
   }, []);
 
   return (
