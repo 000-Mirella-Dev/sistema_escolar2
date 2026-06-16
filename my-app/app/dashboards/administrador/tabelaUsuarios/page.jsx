@@ -1,32 +1,37 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Buscar from "../../../components/busca";
 
 export default function ListaUsuarios() {
   const [usuarios, setUsuarios] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function carregarUsuarios() {
-      try {
-        const res = await fetch("/api/todosusuariosCadastrados");
-        const data = await res.json();
-
-        setUsuarios(data);
-      } catch (erro) {
-        console.error(erro);
-        alert("Erro ao carregar usuários");
-      }
-
-      setLoading(false);
+  async function carregarUsuarios() {
+    setLoading(true)
+    try{
+      const res = await fetch("/api/buscarUsers")
+      const data = await res.json()
+      setUsuarios(data)
+    } catch (erro){
+      console.error(erro)
+      alert("erro ao carregar usuários")
+    } finally{
+      setLoading(false)
     }
-
-    carregarUsuarios();
-  }, []);
+    
+  }
+  function lidarComResultado(dadosFiltrados){
+    if (dadosFiltrados.length === 0){
+      carregarUsuarios()
+    } else {
+      setUsuarios(dadosFiltrados)
+    }
+  }
 
   return (
     <div className="p-6">
-
+      <Buscar onResultadoEncontrado={lidarComResultado} onCarregando={setLoading}></Buscar>
       <h1 className="text-2xl font-bold mb-6">
         Usuários Cadastrados
       </h1>
