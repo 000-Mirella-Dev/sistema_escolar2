@@ -1,5 +1,5 @@
 "use client";
-import useProf from "../../../../app/hooks/prof";
+import useProf from "../../hooks/prof";
 import LogoutButton from "@/app/components/logout";
 import { useState, useEffect } from "react";
 import Link from "next/link";

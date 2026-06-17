@@ -1,6 +1,6 @@
 "use client";
 import {useState} from "react";
-import useProf from "../../../../app/hooks/prof";
+import useProf from "../../../hooks/prof";
 export default function CriarUsuario(){
     useProf();
     const [nome, setNome] = useState("");

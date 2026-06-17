@@ -81,16 +81,6 @@ export default function Cadastro() {
 
                         {abrirPerfil && (
                             <div className="absolute z-10 w-full mt-2 bg-white border rounded-lg shadow-md overflow-hidden">
-                                <button
-                                    type="button"
-                                    className="w-full text-left px-4 py-3 hover:bg-gray-100"
-                                    onClick={() => {
-                                        setPerfil("ALUNO");
-                                        setAbrirPerfil(false);
-                                    }}
-                                >
-                                    Aluno
-                                </button>
 
                                 <button
                                     type="button"

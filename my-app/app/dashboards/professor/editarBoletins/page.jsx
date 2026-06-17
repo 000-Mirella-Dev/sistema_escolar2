@@ -1,5 +1,5 @@
 "use client";
-import useProf from "../../../../app/hooks/prof";
+import useProf from "../../../hooks/prof";
 import { useEffect, useState } from "react";
 function corNota(nota) {
   return Number(nota) >= 6 ? "text-green-600" : "text-red-600";
