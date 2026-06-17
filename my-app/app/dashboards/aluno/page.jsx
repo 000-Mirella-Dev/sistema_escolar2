@@ -1,8 +1,9 @@
 "use client";
 import LogoutButton from "@/app/components/logout";
 import { useEffect, useState } from "react";
-
+import useAluno from "../../hooks/aluno"
 export default function MinhasNotas() {
+  useAluno();
   const [dados, setDados] = useState(null);
   const [loading, setLoading] = useState(true);
 

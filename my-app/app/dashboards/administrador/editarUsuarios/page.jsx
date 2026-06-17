@@ -36,6 +36,9 @@ export default function EditarUsuario() {
   }
 
   return (
+     <main className=" pt-20 flex flex-col text-center items-center mb-10 justify-center">
+<section className="w-full max-w-md">
+
     <form
       onSubmit={salvar}
       className="flex flex-col gap-3 max-w-md bg-white p-6 rounded shadow"
@@ -77,5 +80,7 @@ export default function EditarUsuario() {
         Atualizar
       </button>
     </form>
+    </section>
+    </main>
   );
 }

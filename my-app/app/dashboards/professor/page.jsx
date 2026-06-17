@@ -30,9 +30,9 @@ export default function DashboardProfessor() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-gray-100">
+    <main className="min-h-screen bg-gray-100 ">
 
-      <header className="bg-blue-800 text-white p-6 shadow">
+      <header className=" bg-linear-to-tr from-blue-700 to-sky-400 text-white p-6 shadow ">
         <h1 className="text-3xl font-bold">
           Plataforma Escolar
         </h1>

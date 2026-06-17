@@ -8,13 +8,33 @@ import { useRouter } from "next/navigation";
 export default function Login() {
 
     const router = useRouter();
-
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
+    const [erros, setErros] = useState({})
 
     async function fazerLogin(e) {
-
         e.preventDefault();
+        let errosValidados = {}
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email.trim()){
+            errosValidados.email = "O e-mail é obrigatório."
+        } else if (!emailRegex.test(email)) {
+            errosValidados.email = "Insira um e-mail válido."
+        }
+
+        if (!senha){
+            errosValidados.senha = "A senha é obrigatória"
+        } else if (senha.length<6){
+            errosValidados.senha = "A senha deve ter pelo menos 6 caracteres."
+        }
+
+        if (Object.keys(errosValidados).length > 0) {
+            setErros(errosValidados);
+            return; 
+        }
+
+        setErros({});
 
         try {
 
@@ -84,6 +104,7 @@ export default function Login() {
                             setEmail(e.target.value)
                         }
                     />
+                    {erros.email && <span className="text-red-500 text-xs px-6">{erros.email}</span>}
 
                     <FormInput
                         nameLabel="Senha"
@@ -95,6 +116,7 @@ export default function Login() {
                             setSenha(e.target.value)
                         }
                     />
+                    {erros.senha && <span className="text-red-500 text-xs px-6">{erros.senha}</span>}
 
                     <button
                         type="submit"

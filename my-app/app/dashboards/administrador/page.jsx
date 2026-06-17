@@ -62,7 +62,7 @@ export default function DashboardAdmin() {
   return (
     <main className="min-h-screen bg-gray-100">
 
-      <header className="bg-blue-800 text-white p-6 shadow">
+      <header className=" bg-linear-to-tr from-blue-700 to-sky-400 text-white p-6 shadow ">
         <h1 className="text-3xl font-bold">
           Plataforma Escolar
         </h1>
@@ -122,35 +122,35 @@ export default function DashboardAdmin() {
 
             <Link
               href="/dashboards/administrador/gerenciarUsuarios"
-              className="bg-blue-800 text-white px-6 py-3 rounded-lg"
+              className="text-white bg-linear-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-linear-to-br focus:ring-4 focus:outline-none focus:ring-blue-900 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-base text-sm p-4 text-center leading-5 rounded-sm"
             >
               Cadastrar Usuarios
             </Link> 
 
             <Link
               href="/dashboards/administrador/editarUsuarios"
-              className="bg-green-700 text-white px-6 py-3 rounded-lg"
+              className= "text-white bg-linear-to-r from-blue-400 via-blue-600 to-blue-700 hover:bg-linear-to-br focus:ring-4 focus:outline-none focus:ring-blue-900 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-base text-sm p-4 text-center leading-5 rounded-sm"
             >
               Editar Usuarios
             </Link>
 
             <Link
               href="/dashboards/administrador/excluirUsuarios"
-              className="bg-red-700 text-white px-6 py-3 rounded-lg"
+              className="text-white bg-linear-to-r from-pink-600 via-red-600 to-red-700 hover:bg-linear-to-br focus:ring-4 focus:outline-none focus:ring-red-900 dark:focus:ring-red-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-base text-sm p-4 text-center leading-5 rounded-sm"
             >
               Excluir Usuarios
             </Link>
 
                        <Link
               href="/dashboards/administrador/gerenciarBoletim"
-              className="bg-red-700 text-white px-6 py-3 rounded-lg"
+              className="text-white bg-linear-to-r from-blue-400 via-blue-600 to-blue-700 hover:bg-linear-to-br focus:ring-4 focus:outline-none focus:ring-blue-900 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-base text-sm p-4 text-center leading-5 rounded-sm"
             >
               Gerenciar Boletims
             </Link>
 
                <Link
               href="/dashboards/administrador/tabelaUsuarios"
-              className="bg-red-700 text-white px-6 py-3 rounded-lg"
+              className="text-white bg-linear-to-r from-blue-400 via-blue-600 to-blue-700 hover:bg-linear-to-br focus:ring-4 focus:outline-none focus:ring-blue-900 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-base text-sm p-4 text-center leading-5 rounded-sm"
             >
               Ver todos os usuários
             </Link>
@@ -161,25 +161,25 @@ export default function DashboardAdmin() {
           <h2 className="text-xl font-semibold mb-4">
             Últimos Cadastros
           </h2>
-
+       <div className= " mt-10 rounded-lg overflow-hidden border-2 border-gray-400">
           <table className="w-full">
             <thead>
-              <tr className="border-b">
-                <th className="text-left px-6 py-4">Nome</th>
-                <th className="text-left px-6 py-4">Email</th>
-                <th className="text-left px-6 py-4">Perfil</th>
-                <th className="text-left px-6 py-4">Criado em</th>
-                <th className="text-left px-6 py-4">Criado por</th>
+              <tr className="overflow-x-auto rounded-t-xl border-gray-200 shadow-md m-5">
+                <th className="text-left bg-gray-400 px-6 py-4">Nome</th>
+                <th className="text-left bg-gray-400 px-6 py-4">Email</th>
+                <th className="text-left bg-gray-400 px-6 py-4">Perfil</th>
+                <th className="text-left bg-gray-400 px-6 py-4">Criado em</th>
+                <th className="text-left bg-gray-400 px-6 py-4">Criado por</th>
               </tr>
             </thead>
 
-            <tbody>
-              {dados.Cadastros?.length > 0 ? (
+            <tbody >
+              { dados.Cadastros?.length > 0 ? (
                 dados.Cadastros.map((usuario, index) => (
                   <tr
-                    key={index}
-                    className="border-b hover:bg-gray-50 transition"
-                  >
+                    key={index} 
+                    className={index % 2 === 0 ? "bg-white" : "bg-gray-200"}>
+
                     <td className="px-6 py-4">
                       {usuario.nome}
                     </td>
@@ -216,7 +216,7 @@ export default function DashboardAdmin() {
             </tbody>
           </table>
         </div>
-
+</div>
       </section>
     </main>
   );

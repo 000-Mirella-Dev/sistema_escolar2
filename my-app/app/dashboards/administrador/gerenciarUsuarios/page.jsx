@@ -36,8 +36,12 @@ const [criado_por, setCriadopor] = useState("");
 alert ("usuário cadastrado")
     }
 return (
-    <main className=" justify-center">
-        <h1 className="">Novo usuário</h1>
+    <main className=" pt-20 flex flex-col text-center items-center mb-10 justify-center">
+                    <section className="w-full max-w-md">
+
+<h1 className=" p-10 align-center mb-4 text-xl font-bold text-heading md:text-xl lg:text-xl"> Cadastre um <span className=" text-transparent bg-clip-text bg-linear-to-r to-blue-800 from-sky-400">Novo Usuário</span></h1>
+
+
         <form
             onSubmit={cadastrar}
             className="flex flex-col gap-4 max-w-md"
@@ -75,7 +79,7 @@ return (
                 onChange={(e) => setPerfil(e.target.value)}
                 className="border p-3 rounded"
             >
-                <option value="ALUNO">
+              <option value="ALUNO">
                     Aluno
                 </option>
 
@@ -89,13 +93,14 @@ return (
             </select>
 
             <button
-                className="bg-blue-600 text-white p-3 rounded"
+                className="text-white bg-linear-to-r from-blue-400 via-blue-600 to-blue-700 hover:bg-linear-to-br focus:ring-4 focus:outline-none focus:ring-blue-900 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-base text-sm p-4 text-center leading-5 rounded-sm"
             >
                 Cadastrar
             </button>
 
         </form>
-
+</section>
     </main>
+    
     );
 }

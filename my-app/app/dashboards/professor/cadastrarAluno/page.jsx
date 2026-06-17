@@ -20,7 +20,7 @@ const [criado_por, setCriadopor] = useState("");
                 body: JSON.stringify({
                     nome, 
                     email,
-                     senha,
+                      senha,
                      perfil,
                      criado_por
                 }),
@@ -35,8 +35,12 @@ const [criado_por, setCriadopor] = useState("");
 alert ("usuário cadastrado")
     }
 return (
-    <main className=" justify-center">
-        <h1 className="">Novo Aluno</h1>
+    <main className="flex flex-col text-center items-center mb-10 justify-center">
+                    <section className="w-full max-w-md">
+
+<h1 className=" p-10 align-center mb-4 text-xl font-bold text-heading md:text-xl lg:text-xl"> Cadastre um <span className=" text-transparent bg-clip-text bg-linear-to-r to-blue-800 from-sky-400">Novo aluno</span></h1>
+
+
         <form
             onSubmit={cadastrar}
             className="flex flex-col gap-4 max-w-md"
@@ -86,7 +90,8 @@ return (
             </button>
 
         </form>
-
+</section>
     </main>
+    
     );
 }
