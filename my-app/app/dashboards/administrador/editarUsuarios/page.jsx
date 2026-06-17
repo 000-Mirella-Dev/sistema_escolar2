@@ -1,8 +1,9 @@
 "use client";
-
+import useAdmin from "../../../../app/hooks/adm";
 import { useState } from "react";
 
 export default function EditarUsuario() {
+  useAdmin();
   const [email, setEmail] = useState("");
   const [nome, setNome] = useState("");
   const [novoEmail, setNovoEmail] = useState("");

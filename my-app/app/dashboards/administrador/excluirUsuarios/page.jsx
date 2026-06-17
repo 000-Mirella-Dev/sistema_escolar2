@@ -1,8 +1,9 @@
 "use client";
-
+import useAdmin from "../../../../app/hooks/adm";
 import { useState } from "react";
 
 export default function DeletarUsuario() {
+  useAdmin();
   const [email, setEmail] = useState("");
   const [mensagem, setMensagem] = useState("");
   const [erro, setErro] = useState("");

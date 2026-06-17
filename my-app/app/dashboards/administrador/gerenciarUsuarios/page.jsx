@@ -1,7 +1,9 @@
 "use client";
+import useAdmin from "../../../../app/hooks/adm";
 import {useState} from "react";
 
 export default function CriarUsuario(){
+useAdmin();
     const [nome, setNome] = useState("");
     const[email, setEmail] = useState("")
     const [senha, setSenha] = useState("");

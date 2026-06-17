@@ -1,34 +1,39 @@
-import pool from "@/lib/db";
+import pool from "../../../lib/db";
 
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
-    const busca = searchParams.get("busca");
 
-    let queryText = "";
-    let queryParams = [];
+    const busca = searchParams.get("busca")?.trim();
 
-    if (busca && busca.trim() !== "") {
-      queryText = `
-        SELECT id, nome, email, perfil, criado_em, criado_por, criado_ip
-        FROM usuarios
-        WHERE nome ILIKE $1 OR perfil ILIKE $1 OR email ILIKE $1
-        ORDER BY nome ASC
-      `;
-      queryParams = [`%${busca}%`];
-    } else {
-      queryText = `
-        SELECT id, nome, email, perfil, criado_em, criado_por, criado_ip
-        FROM usuarios
-        ORDER BY nome ASC
-      `;
+    if (!busca) {
+      return Response.json([]);
     }
 
-    const result = await pool.query(queryText, queryParams);
+    const resultado = await pool.query(
+      `
+      SELECT
+        id,
+        nome,
+        email,
+        perfil,
+        criado_em,
+        criado_por,
+        criado_ip
+      FROM usuarios
+      WHERE nome::text ILIKE $1
+         OR perfil::text ILIKE $1
+         OR email::text ILIKE $1
+      ORDER BY nome ASC
+      `,
+      [`%${busca}%`]
+    );
 
-    return Response.json(result.rows);
+    return Response.json(resultado.rows);
 
   } catch (erro) {
+    console.error(erro);
+
     return Response.json(
       { erro: erro.message },
       { status: 500 }

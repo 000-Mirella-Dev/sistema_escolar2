@@ -1,5 +1,5 @@
 "use client";
-
+import useAdmin from "../../../../app/hooks/adm";
 import { useEffect, useState } from "react";
 
 function corNota(nota) {
@@ -35,6 +35,7 @@ function calcularMedia(n) {
   return (soma / validas.length).toFixed(2);
 }
 export default function GerenciarBoletim() {
+  useAdmin();
   const [nome, setNome] = useState("");
   const [professorId, setProfessorId] = useState(1);
 
