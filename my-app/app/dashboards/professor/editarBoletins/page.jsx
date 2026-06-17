@@ -1,6 +1,8 @@
 "use client";
 import useProf from "../../../hooks/prof";
 import { useEffect, useState } from "react";
+
+
 function corNota(nota) {
   return Number(nota) >= 6 ? "text-green-600" : "text-red-600";
 }
@@ -26,14 +28,16 @@ export default function Boletim() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    async function carregar() {
-      const res = await fetch("/api/editarNotas");
-      const data = await res.json();
-      setNotas(data);
-    }
+  async function carregar() {
+    const res = await fetch("/api/editarNotas");
 
-    carregar();
-  }, []);
+    const data = await res.json();
+
+    setNotas(data);
+  }
+
+  carregar();
+}, []);
 
   function handleChange(id, campo, valor) {
     setNotas((prev) =>
@@ -42,7 +46,6 @@ export default function Boletim() {
       )
     );
   }
-
   async function salvarAlteracoes() {
     setLoading(true);
 

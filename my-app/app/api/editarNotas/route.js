@@ -1,5 +1,29 @@
 import pool from "@/lib/db";
+import { cookies } from "next/headers";
 
+
+export async function GET() {
+  const cookieStore = await cookies();
+
+  const usuario = JSON.parse(
+    decodeURIComponent(
+      cookieStore.get("usuario").value
+    )
+  );
+
+  const professorId = usuario.id;
+
+  const result = await pool.query(
+    `
+    SELECT *
+    FROM notas
+    WHERE professor_id = $1
+    `,
+    [professorId]
+  );
+
+  return Response.json(result.rows);
+}
 export async function PUT(req) {
   try {
     let {
@@ -42,6 +66,7 @@ export async function PUT(req) {
     );
 
     return Response.json({
+      
       mensagem: "Notas atualizadas com sucesso",
       nota: result.rows[0],
     });

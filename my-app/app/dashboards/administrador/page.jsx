@@ -1,12 +1,10 @@
 "use client";
-
 import LogoutButton from "@/app/components/logout";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function DashboardAdmin() {
-
   const router = useRouter();
 
   const [dados, setDados] = useState({
@@ -55,7 +53,6 @@ export default function DashboardAdmin() {
         console.log(err);
 
       }
-
     }
 
     carregarDados();
@@ -69,6 +66,7 @@ export default function DashboardAdmin() {
         <h1 className="text-3xl font-bold">
           Plataforma Escolar
         </h1>
+
 
         <p className="text-blue-100 mt-1">
           Área do Administrador

@@ -32,30 +32,33 @@ export default function MinhasNotas() {
       </h1>
       <LogoutButton/>
 
-      <table className="w-full border">
+<div className= " mt-10 rounded-lg overflow-hidden border-2 border-gray-400">
+      <table className="w-full">
         <thead>
-          <tr>
-            <th>Disciplina</th>
-            <th>Nota 1</th>
-            <th>Nota 2</th>
-            <th>Nota 3</th>
-            <th>Nota 4</th>
+          <tr className="overflow-x-auto rounded-t-xl border-gray-200 shadow-md m-5">
+            <th className="bg-gray-400 p-3">Disciplina</th>
+            <th className="bg-gray-400">Nota 1</th>
+            <th className="bg-gray-400">Nota 2</th>
+            <th className="bg-gray-400">Nota 3</th>
+            <th className="bg-gray-400">Nota 4</th>
           </tr>
         </thead>
 
         <tbody>
           {dados.notas.map((n, i) => (
-            <tr key={i}>
-              <td>{n.disciplina}</td>
-              <td>{n.nota1 ?? "-"}</td>
-              <td>{n.nota2 ?? "-"}</td>
-              <td>{n.nota3 ?? "-"}</td>
-              <td>{n.nota4 ?? "-"}</td>
+            <tr key={i}  
+            className={i % 2 === 0 ? "bg-white" : "bg-gray-200"}>
+              <td className="p-3 pl-6">{n.disciplina}</td>
+              <td className="p-3">{n.nota1 ?? "-"}</td>
+              <td className="p-3">{n.nota2 ?? "-"}</td>
+              <td className="p-3">{n.nota3 ?? "-"}</td>
+              <td className="p-3">{n.nota4 ?? "-"}</td>
             </tr>
           ))}
         </tbody>
       </table>
 
+    </div>
     </div>
   );
 }
