@@ -16,12 +16,12 @@ export default function Cadastro() {
     async function fazerCadastro(e) {
         e.preventDefault();
 
-        try {
+    try {
             const resposta = await fetch("/api/cadastro", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                },
+         },
                 body: JSON.stringify({
                     nome,
                     email,
@@ -38,10 +38,9 @@ export default function Cadastro() {
                 return;
             }
 
-            alert(dados.mensagem);
 
             if (resposta.ok) {
-                router.push("@/login")
+                router.push("../../auth/login")
             }
 
             alert(dados.mensagem);
