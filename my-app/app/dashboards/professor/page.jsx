@@ -3,8 +3,9 @@ import useProf from "../../hooks/prof";
 import LogoutButton from "@/app/components/logout";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-
+import { useRouter } from 'next/navigation';
 export default function DashboardProfessor() {
+  const router = useRouter();
   useProf();
   const [dados, setDados] = useState({
     Usuarios: 0,
@@ -94,17 +95,8 @@ export default function DashboardProfessor() {
             >
              Cadastrar Aluno
             </Link>
+<button className="text-white bg-linear-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-linear-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5 rounded-sm"type="button" onClick={() => router.push('/dashboards/professor/editarBoletins')}>Editar botetins</button>
 
-            <Link
-              href="/dashboards/professor/editarBoletins"
-              className="bg-green-700 text-white px-6 py-3 rounded-lg"
-            >
-              Gerenciar Notas
-            </Link>
-
-            <button className="bg-red-700 text-white px-6 py-3 rounded-lg">
-              Auditoria
-            </button>
 
           </div>
         </div>
