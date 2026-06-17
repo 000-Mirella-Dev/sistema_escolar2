@@ -1,9 +1,11 @@
 "use client";
+import useProf from "../../../../app/hooks/prof";
 import LogoutButton from "@/app/components/logout";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
 export default function DashboardProfessor() {
+  useProf();
   const [dados, setDados] = useState({
     Usuarios: 0,
     Admins: 0,

@@ -40,13 +40,11 @@ export default function Cadastro() {
 
             alert(dados.mensagem);
 
-            if (dados.perfil === "ADMIN") {
-                router.push("../../dashboards/administrador");
-            } else if (dados.perfil === "PROFESSOR") {
-                router.push("/dashboards/professor");
-            } else {
-                router.push("/dashboards/aluno");
+            if (resposta.ok) {
+                router.push("@/login")
             }
+
+            alert(dados.mensagem);
         } catch {
             alert("Erro ao conectar com o servidor");
         }

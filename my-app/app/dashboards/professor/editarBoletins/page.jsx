@@ -1,5 +1,5 @@
 "use client";
-
+import useProf from "../../../../app/hooks/prof";
 import { useEffect, useState } from "react";
 function corNota(nota) {
   return Number(nota) >= 6 ? "text-green-600" : "text-red-600";
@@ -21,6 +21,7 @@ function calcularMedia(n) {
   return (soma / validas.length).toFixed(2);
 }
 export default function Boletim() {
+  useProf()
   const [notas, setNotas] = useState([]);
   const [loading, setLoading] = useState(false);
 
