@@ -139,6 +139,7 @@ export default function ListaUsuarios() {
           <table className="w-full border">
             <thead>
               <tr>
+                <th className="border p-2">ID</th>
                 <th className="border p-2">Nome</th>
                 <th className="border p-2">Email</th>
                 <th className="border p-2">Perfil</th>
@@ -149,6 +150,9 @@ export default function ListaUsuarios() {
               {usuarios.length > 0 ? (
                 usuarios.map((usuario) => (
                   <tr key={usuario.id}>
+                    <td className="border p-2">
+                      {usuario.id}
+                    </td>
                     <td className="border p-2">
                       {usuario.nome}
                     </td>

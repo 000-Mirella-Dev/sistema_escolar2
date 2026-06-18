@@ -85,7 +85,7 @@ export default function EditarUsuario() {
       {erros.nome && <span className="text-red-500 text-xs px-6">{erros.nome}</span>}
 
       <input
-        placeholder="Novo email (opcional)"
+        placeholder="Novo email"
         value={novoEmail}
         onChange={(e) => setNovoEmail(e.target.value)}
         className="border p-2 rounded"
@@ -94,7 +94,7 @@ export default function EditarUsuario() {
 
       <input
         type="password"
-        placeholder="Nova senha (opcional)"
+        placeholder="Nova senha"
         value={senha}
         onChange={(e) => setSenha(e.target.value)}
         className="border p-2 rounded"
