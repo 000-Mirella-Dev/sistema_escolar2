@@ -1,9 +1,9 @@
 "use client";
+
 import { useState } from "react";
 import FormInput from "../../components/formInput";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
 export default function Cadastro() {
     const router = useRouter();
     const [perfil, setPerfil] = useState("ALUNO");
@@ -12,52 +12,65 @@ export default function Cadastro() {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [chaveMestra, setChaveMestra] = useState("");
+
     const [erros, setErros] = useState({});
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async function fazerCadastro(e) {
         e.preventDefault();
-         let errosValidados = {};
 
+        const errosValidados = {};
+
+        // Validação de Nome
         if (!nome.trim()) {
             errosValidados.nome = "O nome é obrigatório.";
-                } else if (nome.trim().length < 3) {
-            errosValidados.nome = "O nome deve ter pelo menos 3 caracteres.";
+        } else if (nome.trim().length < 3) {
+            errosValidados.nome =
+                "O nome deve ter pelo menos 3 caracteres.";
+        }
 
         // Validação de Email
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
         if (!email) {
             errosValidados.email = "O e-mail é obrigatório.";
         } else if (!emailRegex.test(email)) {
             errosValidados.email = "Insira um e-mail válido.";
         }
-        
+
         // Validação de Senha
         if (!senha) {
             errosValidados.senha = "A senha é obrigatória.";
         } else if (senha.length < 6) {
-            errosValidados.senha = "A senha deve ter pelo menos 6 caracteres.";
+            errosValidados.senha =
+                "A senha deve ter pelo menos 6 caracteres.";
         }
 
-        // Validação de Chave Mestra
+        // Validação da Chave Mestra
         if (perfil !== "ALUNO" && !chaveMestra.trim()) {
-            errosValidados.chaveMestra = "A chave mestra é obrigatória para este perfil.";
+            errosValidados.chaveMestra =
+                "A chave mestra é obrigatória para este perfil.";
         }
 
         if (Object.keys(errosValidados).length > 0) {
             setErros(errosValidados);
-            return; 
+            return;
         }
 
         setErros({});
-        
+
         try {
             const resposta = await fetch("/api/cadastro", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ nome, email, senha, perfil, chaveMestra }),
+                body: JSON.stringify({
+                    nome,
+                    email,
+                    senha,
+                    perfil,
+                    chaveMestra,
+                }),
             });
 
             const dados = await resposta.json();
@@ -69,10 +82,9 @@ export default function Cadastro() {
 
             alert(dados.mensagem || "Cadastro realizado com sucesso!");
 
-           router.push("../../auth/login")
-
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            router.push("/auth/login");
         } catch (error) {
+            console.error(error);
             alert("Erro ao conectar com o servidor");
         }
     }
@@ -82,7 +94,11 @@ export default function Cadastro() {
             <section className="w-full max-w-md">
                 <div className="flex flex-col items-center mb-10">
                     <i className="bi bi-person-circle text-blue-400 text-8xl"></i>
-                    <h2 className="text-3xl font-semibold mt-4">Cadastre-se</h2>
+
+                    <h2 className="text-3xl font-semibold mt-4">
+                        Cadastre-se
+                    </h2>
+
                     <p className="text-gray-500 text-sm mt-2">
                         Crie sua conta para continuar
                     </p>
@@ -96,14 +112,36 @@ export default function Cadastro() {
                             className="w-full h-10 border-b-2 border-gray-300 flex items-center justify-between text-gray-700"
                         >
                             <span>
-                                Selecione o perfil: {perfil === "PROFESSOR" ? "Professor" : "Administrador"}
+                                Perfil:{" "}
+                                {perfil === "ALUNO"
+                                    ? "Aluno"
+                                    : perfil === "PROFESSOR"
+                                    ? "Professor"
+                                    : "Administrador"}
                             </span>
-                            <i className={`bi ${abrirPerfil ? "bi-chevron-up" : "bi-chevron-down"}`} />
+
+                            <i
+                                className={`bi ${
+                                    abrirPerfil
+                                        ? "bi-chevron-up"
+                                        : "bi-chevron-down"
+                                }`}
+                            />
                         </button>
 
                         {abrirPerfil && (
                             <div className="absolute z-10 w-full mt-2 bg-white border rounded-lg shadow-md overflow-hidden">
-                
+                                <button
+                                    type="button"
+                                    className="w-full text-left px-4 py-3 hover:bg-gray-100"
+                                    onClick={() => {
+                                        setPerfil("ALUNO");
+                                        setAbrirPerfil(false);
+                                    }}
+                                >
+                                    Aluno
+                                </button>
+
                                 <button
                                     type="button"
                                     className="w-full text-left px-4 py-3 hover:bg-gray-100"
@@ -114,6 +152,7 @@ export default function Cadastro() {
                                 >
                                     Professor
                                 </button>
+
                                 <button
                                     type="button"
                                     className="w-full text-left px-4 py-3 hover:bg-gray-100"
@@ -138,7 +177,12 @@ export default function Cadastro() {
                         value={nome}
                         onChange={(e) => setNome(e.target.value)}
                     />
-                    {erros.nome && <span className="text-red-500 text-xs px-6">{erros.nome}</span>}
+
+                    {erros.nome && (
+                        <span className="text-red-500 text-xs px-6">
+                            {erros.nome}
+                        </span>
+                    )}
 
                     <FormInput
                         nameLabel="Email"
@@ -148,7 +192,12 @@ export default function Cadastro() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
-                    {erros.email && <span className="text-red-500 text-xs px-6">{erros.email}</span>}
+
+                    {erros.email && (
+                        <span className="text-red-500 text-xs px-6">
+                            {erros.email}
+                        </span>
+                    )}
 
                     <FormInput
                         nameLabel="Senha"
@@ -158,19 +207,33 @@ export default function Cadastro() {
                         value={senha}
                         onChange={(e) => setSenha(e.target.value)}
                     />
-                    {erros.senha && <span className="text-red-500 text-xs px-6">{erros.senha}</span>}
+
+                    {erros.senha && (
+                        <span className="text-red-500 text-xs px-6">
+                            {erros.senha}
+                        </span>
+                    )}
 
                     {perfil !== "ALUNO" && (
-                        <FormInput
-                            nameLabel="Chave Mestra"
-                            id="id-chave"
-                            type="password"
-                            placeholder="Digite a chave"
-                            value={chaveMestra}
-                            onChange={(e) => setChaveMestra(e.target.value)}
-                        />
+                        <>
+                            <FormInput
+                                nameLabel="Chave Mestra"
+                                id="id-chave"
+                                type="password"
+                                placeholder="Digite a chave"
+                                value={chaveMestra}
+                                onChange={(e) =>
+                                    setChaveMestra(e.target.value)
+                                }
+                            />
+
+                            {erros.chaveMestra && (
+                                <span className="text-red-500 text-xs px-6">
+                                    {erros.chaveMestra}
+                                </span>
+                            )}
+                        </>
                     )}
-                    {erros.chaveMestra && <span className="text-red-500 text-xs px-6">{erros.chaveMestra}</span>}
 
                     <button
                         type="submit"
@@ -181,7 +244,10 @@ export default function Cadastro() {
 
                     <div className="text-center text-gray-600 mt-6">
                         Já possui uma conta?
-                        <Link href="/auth/login" className="ml-1 text-emerald-700 hover:underline">
+                        <Link
+                            href="/auth/login"
+                            className="ml-1 text-emerald-700 hover:underline"
+                        >
                             Entrar
                         </Link>
                     </div>
@@ -189,4 +255,4 @@ export default function Cadastro() {
             </section>
         </main>
     );
-}}
+}
