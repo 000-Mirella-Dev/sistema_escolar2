@@ -7,13 +7,28 @@ export default function DeletarUsuario() {
   const [email, setEmail] = useState("");
   const [mensagem, setMensagem] = useState("");
   const [erro, setErro] = useState("");
+  const [erros, setErros] = useState({});
 
   async function deletar(e) {
     e.preventDefault();
-
+    let errosValidados = {}
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email) {
+          errosValidados.email = "O e-mail é obrigatório.";
+      } else if (!emailRegex.test(email)) {
+          errosValidados.email = "Insira um e-mail válido.";
+      }
+      if (Object.keys(errosValidados).length > 0) {
+        setErros(errosValidados);
+        return; 
+      }
+    setErros({});
     setMensagem("");
     setErro("");
-
+    const certeza = window.confirm("Você tem certeza que deseja excluir este usuário? Esta ação não pode ser desfeita.");
+    if (!certeza) {
+      return;
+    }
     const res = await fetch("/api/excluirUsuarios", {
       method: "DELETE",
       headers: {
@@ -50,6 +65,7 @@ export default function DeletarUsuario() {
           onChange={(e) => setEmail(e.target.value)}
           className="border p-3 rounded"
         />
+        {erros.email && <span className="text-red-500 text-xs px-6">{erros.email}</span>}
 
         <button className="bg-red-600 text-white p-3 rounded hover:bg-red-700">
           Excluir

@@ -9,7 +9,6 @@ export async function POST(req) {
       `SELECT * FROM usuarios WHERE email = $1`,
       [email]
     );
-
     if (resultado.rows.length === 0) {
       return Response.json(
         { erro: "Usuário não encontrado" },
@@ -22,17 +21,36 @@ export async function POST(req) {
     const senhaValida = await bcrypt.compare(
       senha,
       usuario.senha
-    );
+ );
 
-    if (!senhaValida) {
+  if (!senhaValida) {
+
+await pool.query(
+  `
+  INSERT INTO log_acesso
+  (
+    usuario_id,
+    acao,
+    ip,
+    descricao
+  )
+  VALUES
+  ($1, $2, $3, $4)
+  `,
+  [
+    usuario.id,
+    "TENTATIVA_LOGIN_INVALIDA",
+    req.headers.get("x-forwarded-for") || "localhost",
+    `Tentativa de login inválida para ${usuario.email}`
+  ]
+);
       return Response.json(
         { erro: "Senha incorreta" },
         { status: 401 }
       );
     }
 
-//cookie
-   const sessionData = {
+    const sessionData = {
       id: usuario.id,
       nome: usuario.nome,
       email: usuario.email,
@@ -44,6 +62,7 @@ export async function POST(req) {
       usuario: sessionData,
     });
 
+// Cookie
     response.headers.set(
       "Set-Cookie",
       `usuario=${encodeURIComponent(
@@ -51,12 +70,38 @@ export async function POST(req) {
       )}; Path=/; HttpOnly; Max-Age=2592000; SameSite=Strict`
     );
 
+await pool.query(
+  `
+  INSERT INTO log_acesso
+  (
+    usuario_id,
+    acao,
+    ip,
+    descricao
+  )
+  VALUES
+  ($1, $2, $3, $4)
+  `,
+  [
+    usuario.id,
+    "LOGIN",
+    req.headers.get("x-forwarded-for") || "localhost",
+    `Login realizado por ${usuario.nome}`
+  ]
+);
+
     return response;
 
   } catch (erro) {
+
     return Response.json(
-      { erro: erro.message },
-      { status: 500 }
+      {
+        erro: erro.message,
+      },
+      {
+        status: 500,
+      }
     );
+
   }
 }

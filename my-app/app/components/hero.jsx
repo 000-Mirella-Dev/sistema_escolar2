@@ -25,7 +25,7 @@ export default function Hero(){
         </h1>
 
         <p className="mt-6 text-lg text-blue-100 leading-relaxed">
-          Conecte alunos, professores e responsáveis em uma
+          Conecte alunos e professores em uma
           plataforma intuitiva.
         </p>
 

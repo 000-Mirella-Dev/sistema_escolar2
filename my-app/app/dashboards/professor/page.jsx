@@ -2,7 +2,7 @@
 import useProf from "../../hooks/prof";
 import LogoutButton from "@/app/components/logout";
 import { useState, useEffect } from "react";
-
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 export default function DashboardProfessor() {
   const router = useRouter();
@@ -42,7 +42,6 @@ export default function DashboardProfessor() {
         </p>
        <LogoutButton/>
         <div className="flex flex-wrap gap-4 mt-4">
-
 
         </div>
       </header>
@@ -88,12 +87,15 @@ export default function DashboardProfessor() {
           </h2>
 
           <div className="flex flex-wrap gap-4">
-
+<Link href ="/auth/tabelaUsuarios"
+className="text-white bg-linear-to-r from-blue-400 via-blue-600 to-blue-700 hover:bg-linear-to-br  focus:ring-4 focus:outline-none focus:ring-blue-900 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-base text-sm p-4 text-center leading-5 rounded-sm"
+            >
+              Pesquisar Usuários
+            </Link>
 <button className="text-white bg-linear-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-linear-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5 rounded-sm"type="button" onClick={() => router.push('/dashboards/professor/cadastrarAluno')}>Cadastrar Aluno</button>
 
 
 <button className="text-white bg-linear-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-linear-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5 rounded-sm"type="button" onClick={() => router.push('/dashboards/professor/editarBoletins')}>Editar botetins</button>
-
 
           </div>
         </div>

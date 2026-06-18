@@ -1,9 +1,9 @@
 "use client";
-import useAdmin from "../../../../app/hooks/adm";
+import useAuth from "@/app/hooks/auth"
 import { useState, useEffect } from "react";
 
 export default function ListaUsuarios() {
-useAdmin();
+useAuth();
   const [usuarios, setUsuarios] = useState([]);
   const [loading, setLoading] = useState(true);
   const [busca, setBusca] = useState("");

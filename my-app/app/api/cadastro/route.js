@@ -104,7 +104,29 @@ if (
           perfil,
         ]
       );
+      const novoUsuario = resultado.rows[0];
 
+await pool.query(
+  `
+  INSERT INTO auditoria
+  (
+    usuario_id,
+    tabela_afetada,
+    registro_id,
+    tipo_alteracao,
+    descricao
+  )
+  VALUES
+  ($1,$2,$3,$4,$5)
+  `,
+  [
+    novoUsuario.id,
+    "usuarios",
+    novoUsuario.id,
+    "CREATE",
+    `Cadastro de usuário ${novoUsuario.nome}`
+  ]
+);
     return Response.json({
       mensagem:
         "Usuário cadastrado com sucesso",

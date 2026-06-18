@@ -1,5 +1,5 @@
 "use client";
-import useAdmin from "../../../../app/hooks/adm";
+import useAdmin from "../../../hooks/adm";
 import {useState} from "react";
 
 export default function CriarUsuario(){

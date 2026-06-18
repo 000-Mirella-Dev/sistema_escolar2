@@ -147,9 +147,20 @@ export default function DashboardAdmin() {
             >
               Gerenciar Boletims
             </Link>
-
                <Link
-              href="/dashboards/administrador/tabelaUsuarios"
+              href="/dashboards/administrador/auditoria"
+              className="text-white bg-linear-to-r from-blue-400 via-blue-600 to-blue-700 hover:bg-linear-to-br focus:ring-4 focus:outline-none focus:ring-blue-900 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-base text-sm p-4 text-center leading-5 rounded-sm"
+            >
+              Auditoria do sistema
+            </Link>
+          <Link
+              href="/dashboards/administrador/log_acesso"
+              className="text-white bg-linear-to-r from-blue-400 via-blue-600 to-blue-700 hover:bg-linear-to-br focus:ring-4 focus:outline-none focus:ring-blue-900 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-base text-sm p-4 text-center leading-5 rounded-sm"
+            >
+              Log acesso
+            </Link>
+               <Link
+              href="../../auth/tabelaUsuarios"
               className="text-white bg-linear-to-r from-blue-400 via-blue-600 to-blue-700 hover:bg-linear-to-br focus:ring-4 focus:outline-none focus:ring-blue-900 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-base text-sm p-4 text-center leading-5 rounded-sm"
             >
               Ver todos os usuários

@@ -95,7 +95,29 @@ export default function GerenciarBoletim() {
       );
     }
   }
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+async function excluir() {
+  const response = await fetch(
+    "/api/excluirBoletim",
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        disciplina: nome,
+      }),
+    }
+  );
+  const data = await response.json();
+  if (!response.ok) {
+    alert(data.erro);
+    return;
+  }
 
+  alert(data.mensagem);
+  setNome("");
+}
   function handleChange(
     id,
     campo,

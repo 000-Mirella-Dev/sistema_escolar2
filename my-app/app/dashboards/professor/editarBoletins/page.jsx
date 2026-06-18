@@ -8,17 +8,25 @@ function corNota(nota) {
 }
 function calcularMedia(n) {
   const notas = [
-    Number(n.nota1),
-    Number(n.nota2),
-    Number(n.nota3),
-    Number(n.nota4),
+    n.nota1,
+    n.nota2,
+    n.nota3,
+    n.nota4,
   ];
 
-  const validas = notas.filter((v) => !isNaN(v));
+  const validas = notas.filter(
+    (v) =>
+      v !== null &&
+      v !== undefined &&
+      v !== ""
+  );
 
-  if (validas.length === 0) return 0;
+  if (validas.length === 0) return "-";
 
-  const soma = validas.reduce((acc, val) => acc + val, 0);
+  const soma = validas.reduce(
+    (acc, val) => acc + parseFloat(val),
+    0
+  );
 
   return (soma / validas.length).toFixed(2);
 }
@@ -58,10 +66,10 @@ export default function Boletim() {
           },
           body: JSON.stringify({
             id: Number(n.id),
-            nota1: Number(n.nota1),
-            nota2: Number(n.nota2),
-            nota3: Number(n.nota3),
-            nota4: Number(n.nota4),
+nota1: n.nota1 === "" ? null : Number(n.nota1),
+nota2: n.nota2 === "" ? null : Number(n.nota2),
+nota3: n.nota3 === "" ? null : Number(n.nota3),
+nota4: n.nota4 === "" ? null : Number(n.nota4),
           }),
         });
 
