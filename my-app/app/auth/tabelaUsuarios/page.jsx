@@ -111,7 +111,6 @@ useAuth();
               <th className="p-3 text-left">Perfil</th>
               <th className="p-3 text-left">Criado em</th>
               <th className="p-3 text-left">Criado por</th>
-              <th className="p-3 text-left">IP</th>
             </tr>
           </thead>
 
@@ -151,12 +150,9 @@ useAuth();
                   </td>
 
                   <td className="p-3">
-                    {usuario.criado_por || "-"}
+                    {usuario.criado_por || "Sistema"}
                   </td>
 
-                  <td className="p-3">
-                    {usuario.criado_ip || "-"}
-                  </td>
 
                 </tr>
 
