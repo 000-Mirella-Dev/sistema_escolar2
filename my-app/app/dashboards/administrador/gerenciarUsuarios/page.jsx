@@ -1,5 +1,5 @@
 "use client";
-import useAdmin from "../../../hooks/adm";
+import useAdmin from "../../../../app/hooks/adm";
 import {useState} from "react";
 
 export default function CriarUsuario(){
@@ -7,11 +7,40 @@ useAdmin();
     const [nome, setNome] = useState("");
     const[email, setEmail] = useState("")
     const [senha, setSenha] = useState("");
-const [criado_por, setCriadopor] = useState("");
+    const [criado_por, setCriadopor] = useState("");
     const [perfil, setPerfil] = useState("ALUNO");
+    const [erros, setErros] = useState({});
 
     async function cadastrar(e) {
         e.preventDefault();
+        let errosValidados = {}
+        if (!nome.trim()){
+            errosValidados.nome = "O nome é obrigatório."
+        } else if (nome.trim().length < 3) {
+            errosValidados.nome = "O nome deve ter pelo menos 3 caracteres."
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email) {
+            errosValidados.email = "O e-mail é obrigatório.";
+        } else if (!emailRegex.test(email)) {
+            errosValidados.email = "Insira um e-mail válido.";
+        }
+
+        if (!senha) {
+            errosValidados.senha = "A senha é obrigatória.";
+        } else if (senha.length < 6) {
+            errosValidados.senha = "A senha deve ter pelo menos 6 caracteres.";
+        }
+        if (!criado_por){
+            errosValidados.criado_por = "È necessario digitar o nome de quem está cadastrando"
+        }
+        if (Object.keys(errosValidados).length > 0) {
+            setErros(errosValidados);
+            return; 
+        }
+
+        setErros({});
         const resposta = await fetch(
             "/api/usuarios",
             { method : "POST",
@@ -53,6 +82,7 @@ return (
                 value={nome}
                 onChange={(e) => setNome(e.target.value)}
                 className="border p-3 rounded" />
+            {erros.nome && <span className="text-red-500 text-xs px-6">{erros.nome}</span>}
 
             <input
                 type="email"
@@ -60,6 +90,7 @@ return (
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="border p-3 rounded" />
+            {erros.email && <span className="text-red-500 text-xs px-6">{erros.email}</span>}
 
             <input
                 type="password"
@@ -67,13 +98,14 @@ return (
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
                 className="border p-3 rounded" />
-              <input
-                 name="criado_por"
-                  placeholder="Seu nome (quem está cadastrando)"
-                   value={criado_por}
-                  onChange={(e) => setCriadopor(e.target.value)}
-                    className="w-full p-2 border mb-4 rounded"
-      />
+            {erros.senha && <span className="text-red-500 text-xs px-6">{erros.senha}</span>}
+            <input
+                name="criado_por"
+                placeholder="Seu nome (quem está cadastrando)"
+                value={criado_por}
+                onChange={(e) => setCriadopor(e.target.value)}
+                className="w-full p-2 border mb-4 rounded" />
+            {erros.criado_por && <span className="text-red-500 text-xs px-6">{erros.criado_por}</span>}
             <select
                 value={perfil}
                 onChange={(e) => setPerfil(e.target.value)}

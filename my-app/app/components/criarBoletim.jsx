@@ -1,4 +1,3 @@
-
 import Boletim from "@/app/components/criarBoletim"
 import { useState } from "react";
 
@@ -6,8 +5,25 @@ export default function CriarDisciplina() {
 
   const [nome, setNome] = useState("");
   const [professorId, setProfessorId] = useState(1);
+  const [erros, setErros] = useState({});
 
-  async function criar() {
+  async function criar(e) {
+    e.preventDefault();
+    let errosValidados = {}
+        if (!nome.trim()){
+        errosValidados.nome = "O nome da diciplina é obrigatório."
+    }
+        if (!professorId){
+          errosValidados.professorId = "Id do professor é obrigatorio"
+        }
+
+        if (Object.keys(errosValidados).length > 0) {
+            setErros(errosValidados);
+            return; 
+        }
+        setErros({});
+
+
     const response = await fetch("/api/criarBoletim", {
       method: "POST",
       headers: {
@@ -42,6 +58,7 @@ export default function CriarDisciplina() {
         onChange={(e) => setNome(e.target.value)}
         className="border p-2"
       />
+      {erros.nome && <span className="text-red-500 text-xs px-6">{erros.nome}</span>}
 
       <input
         placeholder="Professor ID"
@@ -49,6 +66,7 @@ export default function CriarDisciplina() {
         onChange={(e) => setProfessorId(e.target.value)}
         className="border p-2 ml-2"
       />
+      {erros.professorId && <span className="text-red-500 text-xs px-6">{erros.professorId}</span>}
 
       <button
         onClick={criar}

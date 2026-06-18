@@ -14,13 +14,15 @@ export default function Cadastro() {
     const [chaveMestra, setChaveMestra] = useState("");
     const [erros, setErros] = useState({});
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async function fazerCadastro(e) {
         e.preventDefault();
          let errosValidados = {};
 
         if (!nome.trim()) {
             errosValidados.nome = "O nome é obrigatório.";
-        }
+                } else if (nome.trim().length < 3) {
+            errosValidados.nome = "O nome deve ter pelo menos 3 caracteres.";
 
         // Validação de Email
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -187,4 +189,4 @@ export default function Cadastro() {
             </section>
         </main>
     );
-}
+}}

@@ -8,9 +8,30 @@ export default function EditarUsuario() {
   const [nome, setNome] = useState("");
   const [novoEmail, setNovoEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [erros, setErros] = useState({});
 
   async function salvar(e) {
     e.preventDefault();
+    let errosValidados = {}
+        if (!nome.trim()){
+            errosValidados.nome = "O nome é obrigatório."
+        } else if (nome.trim().length < 3) {
+            errosValidados.nome = "O nome deve ter pelo menos 3 caracteres."
+        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email) {
+            errosValidados.email = "O e-mail é obrigatório.";
+        } else if (!emailRegex.test(email)) {
+            errosValidados.email = "Insira um e-mail válido.";
+        }
+
+
+        if (Object.keys(errosValidados).length > 0) {
+            setErros(errosValidados);
+            return; 
+        }
+
+        setErros({});
 
     const res = await fetch("/api/atualizacaoDeUsuarios", {
       method: "PUT",
@@ -31,7 +52,6 @@ export default function EditarUsuario() {
       alert(data.erro);
       return;
     }
-
     alert("Usuário atualizado com sucesso!");
   }
 
@@ -53,6 +73,8 @@ export default function EditarUsuario() {
         onChange={(e) => setEmail(e.target.value)}
         className="border p-2 rounded"
       />
+      {erros.email && <span className="text-red-500 text-xs px-6">{erros.email}</span>}
+      
 
       <input
         placeholder="Novo nome"
@@ -60,6 +82,7 @@ export default function EditarUsuario() {
         onChange={(e) => setNome(e.target.value)}
         className="border p-2 rounded"
       />
+      {erros.nome && <span className="text-red-500 text-xs px-6">{erros.nome}</span>}
 
       <input
         placeholder="Novo email (opcional)"
@@ -67,6 +90,7 @@ export default function EditarUsuario() {
         onChange={(e) => setNovoEmail(e.target.value)}
         className="border p-2 rounded"
       />
+      {erros.novoEmail && <span className="text-red-500 text-xs px-6">{erros.novoEmail}</span>}
 
       <input
         type="password"
@@ -75,6 +99,7 @@ export default function EditarUsuario() {
         onChange={(e) => setSenha(e.target.value)}
         className="border p-2 rounded"
       />
+      {erros.senha && <span className="text-red-500 text-xs px-6">{erros.senha}</span>}
 
       <button className="bg-blue-600 text-white p-2 rounded">
         Atualizar
@@ -84,3 +109,4 @@ export default function EditarUsuario() {
     </main>
   );
 }
+
