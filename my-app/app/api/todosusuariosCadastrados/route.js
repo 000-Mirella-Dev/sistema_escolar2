@@ -9,8 +9,7 @@ export async function GET() {
         email,
         perfil,
         criado_em,
-        criado_por,
-        criado_ip
+        criado_por
       FROM usuarios
       ORDER BY nome ASC
     `);
